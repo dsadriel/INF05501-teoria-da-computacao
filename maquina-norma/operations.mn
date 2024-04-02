@@ -1,0 +1,74 @@
+// Reg := 0
+operation clear(Reg){
+	1: if zero Reg then goto 0 else goto 2
+	2: do dec Reg goto 1 
+}
+
+// RegA := RegA + RegB
+operation add(RegA, RegB){
+	1: do clear(TEMP_addA) goto 2 
+
+	2: if zero RegB then goto 6 else goto 3
+	3: do dec RegB goto 4
+	4: do inc RegA goto 5
+	5: do inc TEMP_addA goto 2
+
+	6: if zero TEMP_addA then goto 0 else goto 7
+	7: do inc RegB goto 8
+	8: do dec TEMP_addA goto 6
+	
+}
+
+// RegA := RegB
+operation attrib(RegA, RegB){
+	1: do clear(RegA) goto 2
+	2: do add(RegA, RegB) goto 0
+}
+
+// RegA := RegA * RegB
+operation mult(RegA, RegB){
+	1: do attrib(TEMP_multA, RegA) goto 2
+	2: do attrib(TEMP_multB, RegB) goto 3
+
+    3: do dec TEMP_multB goto 4
+	4: if zero TEMP_multB then goto 0 else goto 5
+	5: do add(RegA, TEMP_multA) goto 3 
+}
+
+
+// RegA := RegA^RegB
+operation pow(RegA, RegB){
+	1: if zero RegA then goto 0 else goto 2
+	2: do attrib(TEMP_powA, RegA) goto 3
+	3: do attrib(TEMP_powB, RegB) goto 4
+
+
+	// RegA := 1
+    4: do clear(RegA) goto 5
+	5: do inc RegA goto 6
+
+	// while(TEMP_powB != 0){
+	// 	TEMP_powB := TEMP_powB - 1;
+	// 	RegA := RegA * TEMP_powA
+	// }
+	6: if zero TEMP_powB then goto 0 else goto 7
+	7: do dec TEMP_powB goto 8
+	8: do mult(RegA, TEMP_powA) goto 6
+}
+
+
+// TESTES
+//(a) f(x) = x² +3x
+main {
+	1: do add A 2 goto 2
+	2: do add B 3 goto 3
+
+	// Y := x²
+	3: do attrib(C, X) goto 4
+	4: do pow(C, A) goto 5
+	5: do attrib(Y, C) goto 6
+
+	// Y := Y + 3X
+	6: do mult(X, B) goto 7
+	7: do add(Y, X) goto 0
+}

@@ -1,0 +1,25 @@
+{
+  "name": "mn-syntax",
+  "displayName": "Maquina Norma - syntax highlighting",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.87.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "mn",
+      "aliases": ["Maquina NORMA", "mn"],
+      "extensions": ["mn"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "mn",
+      "scopeName": "source.norma",
+      "path": "./syntaxes/mn.tmLanguage.json"
+    }]
+  }
+}
