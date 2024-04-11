@@ -195,3 +195,15 @@ operation snd(RegA, Pair){
 	6: do div(T_sndPair, T_snd3, T_sndPair) goto 7
 	7: do inc RegA goto 5
 }
+//(a) f(x) = x² +3x
+main {
+	1: do add A 2 goto 2
+	2: do add B 3 goto 3
+
+	// Y := x²
+	3: do pow(X, A, Y) goto 4
+
+	// Y := Y + 3X
+	4: do mult(X, B, X) goto 5
+	5: do add(Y, X) goto 0
+}

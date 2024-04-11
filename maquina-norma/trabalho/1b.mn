@@ -195,3 +195,11 @@ operation snd(RegA, Pair){
 	6: do div(T_sndPair, T_snd3, T_sndPair) goto 7
 	7: do inc RegA goto 5
 }
+//(b) f(x) = sum(from i=0 to x) i²
+main{
+	//while(i > x)
+	1: if maior(I, X) then goto 0 else goto 2
+	2: do mult(I, I, B) goto 3
+	3: do add(Y, B) goto 4
+	4: do inc I goto 1
+}
