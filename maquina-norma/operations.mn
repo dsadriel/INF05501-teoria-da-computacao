@@ -76,6 +76,7 @@ operation pow(RegA, RegB, RegC){
 }
 
 
+
 test menor(RegA, RegB){
 	1: if zero RegB then goto false else goto 2
 	2: if zero RegA then goto true else goto 3
@@ -194,4 +195,16 @@ operation snd(RegA, Pair){
 	5: if divBy(T_sndPair, T_snd3) then goto 6 else goto 0
 	6: do div(T_sndPair, T_snd3, T_sndPair) goto 7
 	7: do inc RegA goto 5
+}
+
+// RegC := (RegA, RegB)
+operation pair(RegA, RegB, RegC){
+	1: do clear(RegC) goto 2
+	2: do clear(T_pairFat) goto 3
+	3: do add T_pairFat 2 goto 4
+	
+	4: do pow(T_pairFat, RegA, RegC) goto 5
+	5: do inc T_pairFat goto 6
+	6: do pow(T_pairFat, RegB, T_pairAux) goto 7
+	7: do mult(RegC, T_pairAux, RegC) goto 0
 }
