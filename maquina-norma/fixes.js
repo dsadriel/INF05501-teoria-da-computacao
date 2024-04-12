@@ -29,6 +29,59 @@
     // Carrega o rascunho
     input.value = localStorage.getItem('mn-rascunho');
 
+    // Adiciona o resultado em pares
+    setInterval(() => {
+        let e = [...document.querySelectorAll('td b')].filter(a => a.innerText.includes('Saída') && !a.innerText.includes(')'));
+        let pair = [0, 0]
+
+        if (e.length) {
+            let val = parseInt(e[0].innerText.split(' ')[1]);
+
+            if (val > 0) {
+
+                while (val % 2 == 0) {
+                    pair[0] += 1;
+                    val /= 2;
+                }
+                while (val % 3 == 0) {
+                    pair[1] += 1;
+                    val /= 3;
+                }
+            }
+
+            e[0].innerHTML += ` <i style="color: gray;">(${pair[0]}, ${pair[1]})</i>`;
+        }
+    }, 500);
+
+    // Adiciona um campo para inserir os pares
+    setInterval(() => {
+
+        let input = document.querySelectorAll('td input');
+
+        if (input.length == 1) {
+            
+            let parent = input[0].parentNode;
+            let pair = document.createElement('input');
+
+            pair.setAttribute('type', 'text');
+            pair.onkeyup = () => {
+                let val = pair.value.split(',').map(a => parseInt(a)).slice(0, 2);
+                if(!val[0]) val[0] = 0;
+                if(!val[1]) val[1] = 0;
+                input[0].value = Math.pow(2, val[0]) * Math.pow(3, val[1]);
+                pair.value = val.join(',');
+            }
+            
+            input[0].onkeyup = () => {
+                pair.value = '';
+            }
+
+            parent.appendChild(document.createElement('br'));
+            parent.appendChild(document.createTextNode('Par: '));
+            parent.appendChild(pair);
+
+        }
+    }, 500);
 
 })();
 
