@@ -59,7 +59,7 @@
         let input = document.querySelectorAll('td input');
 
         if (input.length == 1) {
-            
+
             let parent = input[0].parentNode;
             let pair = document.createElement('input');
 
@@ -69,11 +69,15 @@
                 if(!val[0]) val[0] = 0;
                 if(!val[1]) val[1] = 0;
                 input[0].value = Math.pow(2, val[0]) * Math.pow(3, val[1]);
+
+                input[0].dispatchEvent(new Event('input', { bubbles: true }));
+
                 pair.value = val.join(',');
             }
             
             input[0].onkeyup = () => {
                 pair.value = '';
+
             }
 
             parent.appendChild(document.createElement('br'));
