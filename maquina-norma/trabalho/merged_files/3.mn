@@ -208,6 +208,8 @@ operation pair(RegA, RegB, RegC){
 	6: do pow(T_pairFat, RegB, T_pairAux) goto 7
 	7: do mult(RegC, T_pairAux, RegC) goto 0
 }
+
+
 // 3. Considere a sequência de números Tn, com n ∈ N, definida pela seguinte recorrência: T0 = 2, T1 = 5, Tn = 3Tn−1 − 2Tn−2 para n > 1. Por exemplo, T8 = 767.
 //(a) Construa um programa monolítico para máquina Norma que tenha f(n) = Tn como função computada
 

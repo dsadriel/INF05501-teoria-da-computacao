@@ -208,7 +208,9 @@ operation pair(RegA, RegB, RegC){
 	6: do pow(T_pairFat, RegB, T_pairAux) goto 7
 	7: do mult(RegC, T_pairAux, RegC) goto 0
 }
-//(a) f(x) = x² +3x
+
+
+// 1.a) f(x) = x² +3x
 main {
 	1: do add A 2 goto 2
 	2: do add B 3 goto 3

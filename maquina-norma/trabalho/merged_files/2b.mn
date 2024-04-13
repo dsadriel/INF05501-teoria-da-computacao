@@ -208,6 +208,8 @@ operation pair(RegA, RegB, RegC){
 	6: do pow(T_pairFat, RegB, T_pairAux) goto 7
 	7: do mult(RegC, T_pairAux, RegC) goto 0
 }
+
+
 // 2.b) div(x, y) = {
 //                  (q, r) se x > 0 e x = q ∗ y + r para (r < y)
 //                  (0, 0) se x = 0 ou y = 0} , div : N × N → N × N

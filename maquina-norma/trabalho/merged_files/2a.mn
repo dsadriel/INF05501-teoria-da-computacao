@@ -208,16 +208,18 @@ operation pair(RegA, RegB, RegC){
 	6: do pow(T_pairFat, RegB, T_pairAux) goto 7
 	7: do mult(RegC, T_pairAux, RegC) goto 0
 }
+
+
 // 2.a) pol(x, y) = x² + 3y, pol : N × N → N
 main{
-1: do fst(A, X) goto 2
-2: do snd(B, X) goto 3
+    1: do fst(A, X) goto 2
+    2: do snd(B, X) goto 3
 
-3: do add C 2 goto 4
+    3: do add C 2 goto 4
 
-4: do pow(A, C, Y) goto 5
-5: do inc C goto 6
+    4: do pow(A, C, Y) goto 5
+    5: do inc C goto 6
 
-6: do mult(C, B, C) goto 7
-7: do add(Y, C) goto 0
+    6: do mult(C, B, C) goto 7
+    7: do add(Y, C) goto 0
 } 

@@ -208,6 +208,8 @@ operation pair(RegA, RegB, RegC){
 	6: do pow(T_pairFat, RegB, T_pairAux) goto 7
 	7: do mult(RegC, T_pairAux, RegC) goto 0
 }
+
+
 // (d) f(x) = x!! 
 // product(from i=0 to ceil(x/2)-1)) (x - 2i)
 main{
