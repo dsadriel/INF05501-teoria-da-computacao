@@ -208,3 +208,10 @@ operation pair(RegA, RegB, RegC){
 	6: do pow(T_pairFat, RegB, T_pairAux) goto 7
 	7: do mult(RegC, T_pairAux, RegC) goto 0
 }
+// 2.c) foo(x) = (x − 1, floor(x/2)) , foo : N → N × N
+main{
+    1: do add A 2 goto 2
+    2: do div(X, A, B) goto 3
+    3: do dec X goto 4
+    4: do pair(X, B, Y) goto 0
+}

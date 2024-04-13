@@ -208,3 +208,31 @@ operation pair(RegA, RegB, RegC){
 	6: do pow(T_pairFat, RegB, T_pairAux) goto 7
 	7: do mult(RegC, T_pairAux, RegC) goto 0
 }
+// (d) f(x) = x!! 
+// product(from i=0 to ceil(x/2)-1)) (x - 2i)
+main{
+	//if(x == 0) return 1
+	1: if zero X then goto 2 else goto 3
+	2: do inc Y goto 0
+
+	// K = ceil(X/2) - 1;
+	3: do add A 2 goto 4
+	4: do div(X, A, K, R) goto 5
+	5: if zero R then goto 7 else goto 6
+	6: do inc K goto 7
+	7: do inc Y goto 8
+	8: do dec K goto 9
+	
+	//while(!I > K){
+	9: if maior(I, K) then goto 0 else goto 10
+	// F := 2i;
+	10: do mult(I, A, F) goto 11
+	// F := X - 2i;
+	11: do sub(X, F, F) goto 12
+	// Y *= F;
+	12: do mult(Y, F, Y) goto 13
+	// I++;
+	13: do inc I goto 9
+	//}
+	
+}

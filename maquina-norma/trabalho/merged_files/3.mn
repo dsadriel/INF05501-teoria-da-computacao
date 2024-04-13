@@ -208,3 +208,53 @@ operation pair(RegA, RegB, RegC){
 	6: do pow(T_pairFat, RegB, T_pairAux) goto 7
 	7: do mult(RegC, T_pairAux, RegC) goto 0
 }
+// 3. Considere a sequência de números Tn, com n ∈ N, definida pela seguinte recorrência: T0 = 2, T1 = 5, Tn = 3Tn−1 − 2Tn−2 para n > 1. Por exemplo, T8 = 767.
+//(a) Construa um programa monolítico para máquina Norma que tenha f(n) = Tn como função computada
+
+operation calcularTn(RegN, RegTn){
+    // Define os registradores auxiliares
+    1: do clear(T_TnMenos2) goto 2 
+    2: do add T_TnMenos2 2 goto 3 // T0 := 2
+
+    3: do clear(T_TnMenos1) goto 4
+    4: do add T_TnMenos1 5 goto 6 // T1 := 5
+    
+	6: do clear(T_TnCTE2) goto 7
+    7: do add T_TnCTE2 2 goto 8 // CTE2 := 2
+    
+	8: do clear(T_TnCTE3) goto 9
+    9: do add T_TnCTE3 3 goto 10 // CTE3 := 3
+
+
+	// Caso base 1:
+    // Se n = 0 atribui 2
+    10: if zero RegN then goto 11 else goto 12
+    11: do attrib(RegTn, T_TnMenos2) goto 0
+
+	// Caso base 2:
+    // Se n = 1 atribou 5
+    12: if cmp RegN 1 then goto 13 else goto 14
+    13: do attrib(RegTn, T_TnMenos1) goto 0
+
+
+    // Define o registrador contador e auxliar
+    14: do clear(T_TnC) goto 15
+    15: do add T_TnC 2 goto 16
+    16: do clear(T_TnAux) goto 17
+	
+	// Método construtivo, inicia em 2 e vai até n
+    //while(contador < n)
+    17: if menor(RegN, T_TnC) then goto 0 else goto 18
+
+    18: do mult(T_TnMenos1, T_TnCTE3, RegTn) goto 19 // Tn := 3 * Tn-1
+    19: do mult(T_TnMenos2, T_TnCTE2, T_TnAux) goto 20 // Taux := 2 * Tn-2
+    20: do sub(RegTn, T_TnAux) goto 21 // Tn := Tn - Taux  // (3*Tn-1 - 2*Tn-2)
+    21: do attrib(T_TnMenos2, T_TnMenos1) goto 22 // Tn-2 := Tn-1, Tn-2 se torna Tn-1
+    22: do attrib(T_TnMenos1, RegTn) goto 23 // Tn-1 := Tn, Tn-1 se torna Tn
+    23: do inc T_TnC goto 17 // contador++
+	// end while
+}
+
+main{
+    1: do calcularTn(X, Y) goto 0
+}

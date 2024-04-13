@@ -208,3 +208,18 @@ operation pair(RegA, RegB, RegC){
 	6: do pow(T_pairFat, RegB, T_pairAux) goto 7
 	7: do mult(RegC, T_pairAux, RegC) goto 0
 }
+//(c) f(x) = { 
+//				1, se x é múltiplo de 2
+//				2, se x não é múltiplo de 2 mas é múltiplo de 3
+//				0, caso contrário
+//			}
+main{
+	//while(i > x)
+	1: do inc Y goto 2
+	2: do add A 2 goto 3
+	3: if divBy(X, A) then goto 0 else goto 4
+	4: do inc A goto 5
+	5: do inc Y goto 6
+	6: if divBy(X, A) then goto 0 else goto 7
+	7: do clear(Y) goto 0
+}
