@@ -1,0 +1,67 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Maquina NORMA",
+	"patterns": [
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#registers"
+		},
+		{
+			"include": "#labels"
+		},
+		{
+			"include": "#commands"
+		},
+		{
+			"include": "#tests"
+		},
+		{
+			"include": "#strings"
+		}
+	],
+	"repository": {
+		"comments": {
+			"name": "comment.line.double-slash.norma",
+			"match": "//.*$"
+		},
+		"keywords": {
+			"patterns": [{
+				"name": "keyword.control.mn",
+				"match": "\\b(if|goto|then|else|do|true|false|main)\\b"
+			}]
+		},
+		"registers": {
+			"name": "variable.other.register.norma",
+			"match": "\\b[A-Z]\\w*\\b"
+		},
+		"labels": {
+			"name": "variable.other.label.norma",
+			"match": "\\b[0-9a-z]\\w*\\b"
+		},
+		"commands": {
+			"name": "keyword.other.command.norma",
+			"match": "\\b(inc|dec|add|sub|zero|cmp)\\b"
+		},
+		"tests": {
+			"name": "keyword.other.test.norma",
+			"match": "\\b(true|false)\\b"
+		},
+		"strings": {
+			"name": "string.quoted.double.mn",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.mn",
+					"match": "\\\\."
+				}
+			]
+		}
+	},
+	"scopeName": "source.norma"
+}

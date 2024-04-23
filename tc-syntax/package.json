@@ -1,0 +1,37 @@
+{
+  "name": "tc-syntax",
+  "displayName": "Teoria da Computacaoo Syntax",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.87.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "mn",
+      "aliases": ["Maquina NORMA", "mn"],
+      "extensions": ["mn"],
+      "configuration": "./language-configuration.json"
+    },
+    {
+      "id": "lambda",
+      "aliases": ["Lambda Calculus", "lambda"],
+      "extensions": ["lam"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "mn",
+      "scopeName": "source.norma",
+      "path": "./syntaxes/mn.tmLanguage.json"
+    },
+    {
+      "language": "lambda",
+      "scopeName": "source.lambda",
+      "path": "./syntaxes/lambda.tmLanguage.json"
+    }]
+  }
+  
+}
