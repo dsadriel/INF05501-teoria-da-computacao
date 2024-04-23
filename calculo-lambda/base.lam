@@ -1,0 +1,36 @@
+let
+	true = \x y. x;
+	false = \x y. y;
+	if = \b x y. b x y;
+	
+	not = \b. b false true;
+	and = \a b. a b false;
+	or = \a b. a true b;
+	
+	succ = \n. \f x. f (n f x); 
+	add = \a b. (a succ) b;
+	
+	mult = \a b. a (\x. add b x) 0;
+	pow2 = \a b. b (\x. mult a x) 1;
+	pow = \a b. b a;
+	
+	
+	isZero = \x. x (\x. false) true;
+	
+	pair = \a b. \c. c a b;		
+	fst = \p. p true;
+	snd = \p. p false;	
+	swap = \p. pair (snd p) (fst p);
+
+	shiftInc = \p. pair (snd p) (succ (snd p));
+	pred = \n. fst (n shiftInc (pair 0 0));		
+
+	sub = \a b. b pred a;
+
+	lessThan = \a b. not (isZero (sub b a));
+	equalTo = \a b. (lessThan a b) false (isZero (sub a b));
+	greaterThan = \a b. and (lessThan b a) (not (equalTo a b));
+	
+																														
+in
+	\x y. 5;
