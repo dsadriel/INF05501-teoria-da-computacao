@@ -1,4 +1,8 @@
 let
+	omega = \x.x x;
+	OMEGA = omega omega;
+	Y = \f. (\x. f (x x)) (\x. f (x x));
+	
 	true = \x y. x;
 	false = \x y. y;
 	if = \b x y. b x y;
@@ -31,6 +35,72 @@ let
 	equalTo = \a b. (lessThan a b) false (isZero (sub a b));
 	greaterThan = \a b. and (lessThan b a) (not (equalTo a b));
 	
-																														
+	-- listas
+	empty = \x. true;
+	isEmpty = \l. l (\x y. false);
+	cons = pair;
+	head = fst;
+	tail = snd;
+
+	-- recursao
+	S_fat = \R. \n. if (isZero n) 
+					1
+					(mult n (R (pred n)));
+	fat = Y S_fat;
+
+	-- divisao. Divisão inteira de a por b
+	R_div = \R a b. if (or (or (isZero b) (isZero a)) (lessThan a b))
+					0
+					(succ (R (sub a b) b));
+	div = Y R_div;
+
+	-- remainder - resto da divisão de a por b
+	R_remainder = \R a b. if (or (or (isZero b) (isZero a)) (lessThan a b))
+							a
+							(R (sub a b) b);
+	remainder = Y R_remainder;
+
+	--------------------------------
+	----- questões do trabalho -----
+	--------------------------------
+	-- igual = true se a = b || false se b != a
+	igual = \a b. equalTo a b;
+	
+	-- pol ␣ a ␣ b = a² + 3b
+	pol = \a b. add (pow a 2) (mult b 3);
+	
+	-- multTres ␣ n = true se n múltiplo de 3 || false caso contrário
+	multTres = \n. isZero (remainder n 3);
+	
+	-- multFrac ␣ (a,b) ␣ (c,d) = (ac,bd)
+	multFrac = \ab cd. pair (mult (fst ab) (fst cd)) (mult (snd ab) (snd cd));
+	
+	-- somaFrac ␣ (a,b) ␣ (c,d) = (ad + bc,bd)
+	somaFrac = \ab cd. pair (add (mult (fst ab) (snd cd)) (mult (snd ab) (fst cd)) ) (mult (snd ab) (snd cd));
+	
+	-- geraLista ␣ n = [n, n −1,n−2, ... ,1] se n > 0 || [] se n = 0
+	R_geraLista = \R n. if (isZero n)
+							empty
+							(cons n (R (pred n)));
+	geraLista = Y R_geraLista;
+	
+	-- multLista ␣ l = a1 ×···×an se l = [a1,a2,...,an] || 0 se l = []	
+	R_multLista = \R l. if (isEmpty l)
+							1 
+							(mult (head l) (R (tail l)));
+	multLista = \l. if (isEmpty l) 0 (Y R_multLista l);
+	
+	-- seq ␣ n = T(n) : 2 se n = 0 || 5 se n = 1 || 3T(n-1) - 2T(n-2) se n > 1
+	R_seq = \R n. if (equalTo n 0)
+					2 
+					(if (equalTo n 1) 
+						5 
+						(sub 
+							(mult 3 (R (pred n)))
+							(mult 2 (R (sub n 2)))));
+	
+	seq = Y R_seq;
+
+
 in
-	\x y. 5;
+	multLista (cons 1 empty)
