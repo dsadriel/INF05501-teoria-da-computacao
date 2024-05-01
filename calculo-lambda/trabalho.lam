@@ -13,39 +13,7 @@ let
     and = \a b. a b false;
     or = \a b. a true b;
     isZero = \x. x (\x. false) true;
-    lessThan = \a b. not (isZero (sub b a));
-    equalTo = \a b. (lessThan a b) false (isZero (sub a b));
-    greaterThan = \a b. and (lessThan b a) (not (equalTo a b));
     
-
-    -- # -- # -- # -- # -- # -- # -- # -- # --
-    --               ARITMÉTICA             --
-    -- # -- # -- # -- # -- # -- # -- # -- # --
-    succ = \n. \f x. f (n f x); 
-    add = \a b. (a succ) b;
-    mult = \a b. a (\x. add b x) 0;
-    pow2 = \a b. b (\x. mult a x) 1;
-    pow = \a b. b a;    
-    shiftInc = \p. pair (snd p) (succ (snd p));
-    pred = \n. fst (n shiftInc (pair 0 0));        
-    sub = \a b. b pred a;
-    -- div: divisão inteira de a por b
-    R_div = \R a b. if (or (or (isZero b) (isZero a)) (lessThan a b))
-                    0
-                    (succ (R (sub a b) b));
-    div = Y R_div;
-    -- remainder: resto da divisão de a por b
-    R_remainder = \R a b. if (or (or (isZero b) (isZero a)) (lessThan a b))
-                            a
-                            (R (sub a b) b);
-    remainder = Y R_remainder;
-    -- fat: fatorial
-    S_fat = \R. \n. if (isZero n) 
-                    1
-                    (mult n (R (pred n)));
-    fat = Y S_fat;
-
-
     -- # -- # -- # -- # -- # -- # -- # -- # --
     --                  PARES               --
     -- # -- # -- # -- # -- # -- # -- # -- # --
@@ -63,6 +31,46 @@ let
     cons = pair;
     head = fst;
     tail = snd;
+    
+
+    -- # -- # -- # -- # -- # -- # -- # -- # --
+    --               ARITMÉTICA             --
+    -- # -- # -- # -- # -- # -- # -- # -- # --
+    succ = \n. \f x. f (n f x); 
+    add = \a b. (a succ) b;
+    mult = \a b. a (\x. add b x) 0;
+    pow2 = \a b. b (\x. mult a x) 1;
+    pow = \a b. b a;    
+    shiftInc = \p. pair (snd p) (succ (snd p));
+    pred = \n. fst (n shiftInc (pair 0 0));        
+    sub = \a b. b pred a;
+
+    -- # -- # -- # -- # -- # -- # -- # -- # --
+    --                LÓGICA                --
+    -- # -- # -- # -- # -- # -- # -- # -- # --
+    lessThan = \a b. not (isZero (sub b a));
+    equalTo = \a b. (lessThan a b) false (isZero (sub a b));
+    greaterThan = \a b. and (lessThan b a) (not (equalTo a b));
+
+
+    -- # -- # -- # -- # -- # -- # -- # -- # --
+    --               ARITMÉTICA             --
+    -- # -- # -- # -- # -- # -- # -- # -- # --
+    -- div: divisão inteira de a por b
+    R_div = \R a b. if (or (or (isZero b) (isZero a)) (lessThan a b))
+                    0
+                    (succ (R (sub a b) b));
+    div = Y R_div;
+    -- remainder: resto da divisão de a por b
+    R_remainder = \R a b. if (or (or (isZero b) (isZero a)) (lessThan a b))
+                            a
+                            (R (sub a b) b);
+    remainder = Y R_remainder;
+    -- fat: fatorial
+    S_fat = \R. \n. if (isZero n) 
+                    1
+                    (mult n (R (pred n)));
+    fat = Y S_fat;
 
 
     -- # -- # -- # -- # -- # -- # -- # -- # --
